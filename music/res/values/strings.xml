@@ -16,5 +16,6 @@
     <string name="title_artist">艺术家</string>
     <string name="title_songlist">歌曲</string>
     <string name="title_album">专辑</string>
+    <string name="title_activity_album_song_list">专辑歌曲</string>
 
 </resources>

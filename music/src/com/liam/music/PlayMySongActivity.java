@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class PlayMySong extends Activity {
+public class PlayMySongActivity extends Activity {
 	private TextView mTextView;
 	private static MediaPlayer mMediaPlayer = new MediaPlayer(); // 必须设置为静态并初始化，以防止创建多个实例
 	// private boolean pause; // 标记，是否之前已暂停过
@@ -27,6 +27,7 @@ public class PlayMySong extends Activity {
 	private SeekBar music_seekbar; // 进度条
 	private String song_title;
 	private String song_path;
+	private String album_id;
 	private ImageButton mPauseButton;
 	private TextView progressText;
 	private TextView durationText;
@@ -48,11 +49,17 @@ public class PlayMySong extends Activity {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		Intent it = getIntent();
-		mAlbumCover = (ImageView) findViewById(R.id.album_cover);
-		song_path = it.getStringExtra(SongListActivity.song_path);
-		mTextView = (TextView) findViewById(R.id.song_title);
-		song_title = it.getStringExtra(SongListActivity.song_title);
-		mTextView.setText(song_path);
+		mAlbumCover = (ImageView) findViewById(R.id.album_cover);		
+		if (it.getStringExtra(AlbumSongListActivity.album_id) != null) {
+			album_id = it.getStringExtra(AlbumSongListActivity.album_id);
+			song_title = it.getStringExtra(AlbumSongListActivity.song_title);
+			song_path = it.getStringExtra(AlbumSongListActivity.song_path);
+		} else {
+			song_path = it.getStringExtra(MainActivity.song_path);
+			song_title = it.getStringExtra(MainActivity.song_title);
+		}
+		mTextView = (TextView) findViewById(R.id.song_title);		
+		mTextView.setText(song_title);
 		progressText = (TextView) findViewById(R.id.song_progress);
 		durationText = (TextView) findViewById(R.id.song_duration);
 		if (song_path != null) {
@@ -217,8 +224,11 @@ public class PlayMySong extends Activity {
 			if (mMediaPlayer.getCurrentPosition() > 5000) {
 				mMediaPlayer.seekTo(0); // 歌曲从头播放
 			} else {
-				mPreviousSongData = mGetSong.getPreviousSongData(song_title); // 取回下首歌的title和path,下标分别为0,
-																				// 1
+				if (album_id != null) {
+					mPreviousSongData = mGetSong.getPreviousAlbumSongData(song_title, album_id);
+				} else {
+					mPreviousSongData = mGetSong.getPreviousSongData(song_title); // 取回下首歌的title和path,下标分别为0, 1
+				}				
 				song_title = mPreviousSongData[0];
 				song_path = mPreviousSongData[1];
 				mTextView.setText(song_title);
@@ -245,8 +255,11 @@ public class PlayMySong extends Activity {
 			 */
 			break;
 		case R.id.next:
-			mNextSongData = mGetSong.getNextSongData(song_title); // 取回下首歌的title和path,下标分别为0,
-																	// 1
+			if (album_id != null) {
+				mNextSongData = mGetSong.getNextAlbumSongData(song_title, album_id); 
+			} else {
+				mNextSongData = mGetSong.getNextSongData(song_title); // 取回下首歌的title和path,下标分别为0, 1
+			}
 			song_title = mNextSongData[0];
 			song_path = mNextSongData[1];
 			mTextView.setText(song_title);

@@ -3,6 +3,7 @@ package com.liam.music;
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.content.ContentResolver;
 import android.content.Context;
 
@@ -16,7 +17,7 @@ public class GetSong {
 	private static Context ctx;
 	private String[] mPreviousSongData;
 	private String[] mNextSongData;
-	private MediaMetadataRetriever mMMR;
+	private MediaMetadataRetriever mMMR;	
 
 	public GetSong(Context context) {
 		uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -68,12 +69,80 @@ public class GetSong {
 		}
 		return mPreviousSongData;
 	}
+	
+	public String[] getPreviousAlbumSongData(String SONG_TITLE, String album_id) {
+		// c = context.getContentResolver().query(URI, PROJECTION, null, null,
+		// null);
+		String selection = MediaStore.Audio.Media.ALBUM_ID + "=?";
+		String[] selectionArgs = {album_id};
+		ContentResolver contentResolver = ctx.getContentResolver();
+		Cursor cursor = contentResolver.query(uri, null, selection, selectionArgs, null);
+		if (cursor == null) {
+			// query failed, handle error.
+			// Log.i(tag, "null Cursor");
+		} else if (!cursor.moveToLast()) {
+			// no media on the device
+		} else {
+			int titleColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
+			int dataColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+			do {
+				if (cursor.getString(titleColumn) != null
+						&& cursor.getString(titleColumn).toString()
+								.equals(SONG_TITLE)) {
+					if (!cursor.moveToPrevious()) {
+						// 如果当前是第一首，游标移动到最后一首歌
+						cursor.moveToLast();
+					}
+					mPreviousSongData[0] = cursor.getString(titleColumn); // 返回歌曲名称SONG_TITLE
+					mPreviousSongData[1] = cursor.getString(dataColumn); // 返回歌曲地址SONG_PATH
+					break; // 已经找到上一首歌，跳出while循环
+				}
+			} while (cursor.moveToPrevious());
+		}
+		return mPreviousSongData;
+	}
 
 	public String[] getNextSongData(String SONG_TITLE) {
 		// c = context.getContentResolver().query(URI, PROJECTION, null, null,
 		// null);
 		ContentResolver contentResolver = ctx.getContentResolver();
 		Cursor cursor = contentResolver.query(uri, null, null, null, order);
+		if (cursor == null) {
+			// query failed, handle error.
+			// Log.i(tag, "null Cursor");
+		} else if (!cursor.moveToFirst()) {
+			// no media on the device
+		} else {
+			int titleColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
+			int dataColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+			do {
+				if (cursor.getString(titleColumn) != null
+						&& cursor.getString(titleColumn).toString()
+								.equals(SONG_TITLE)) {
+					if (!cursor.moveToNext()) {
+						// 如果当前是最后一首，游标移动到第一首歌
+						cursor.moveToFirst();
+					}
+					mNextSongData[0] = cursor.getString(titleColumn); // 返回歌曲名称SONG_TITLE
+					mNextSongData[1] = cursor.getString(dataColumn); // 返回歌曲地址SONG_PATH
+					break; // 已经找到下一首歌，跳出while循环
+				}
+			} while (cursor.moveToNext());
+		}
+		return mNextSongData;
+	}
+	
+	public String[] getNextAlbumSongData(String SONG_TITLE, String album_id) {
+		// c = context.getContentResolver().query(URI, PROJECTION, null, null,
+		// null);
+		String selection = MediaStore.Audio.Media.ALBUM_ID + "=?";
+		String[] selectionArgs = {album_id};
+		ContentResolver contentResolver = ctx.getContentResolver();
+		Cursor cursor = contentResolver.query(uri, null, selection, selectionArgs, null);
 		if (cursor == null) {
 			// query failed, handle error.
 			// Log.i(tag, "null Cursor");

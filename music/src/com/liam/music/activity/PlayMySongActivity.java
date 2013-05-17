@@ -1,5 +1,7 @@
-package com.liam.music;
+package com.liam.music.activity;
 
+import com.liam.music.R;
+import com.liam.music.entity.GetSong;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -50,13 +52,13 @@ public class PlayMySongActivity extends Activity {
 		}
 		Intent it = getIntent();
 		mAlbumCover = (ImageView) findViewById(R.id.album_cover);		
-		if (it.getStringExtra(AlbumSongListActivity.album_id) != null) {
-			album_id = it.getStringExtra(AlbumSongListActivity.album_id);
-			song_title = it.getStringExtra(AlbumSongListActivity.song_title);
-			song_path = it.getStringExtra(AlbumSongListActivity.song_path);
+		if (it.getStringExtra("album_id") != null) {
+			album_id = it.getStringExtra("album_id");
+			song_title = it.getStringExtra("song_title");
+			song_path = it.getStringExtra("song_path");
 		} else {
-			song_path = it.getStringExtra(MainActivity.song_path);
-			song_title = it.getStringExtra(MainActivity.song_title);
+			song_path = it.getStringExtra("song_path");
+			song_title = it.getStringExtra("song_title");
 		}
 		mTextView = (TextView) findViewById(R.id.song_title);		
 		mTextView.setText(song_title);

@@ -20,7 +20,7 @@
 
         <!-- <uses-library android:name="android.test.runner"/> -->
         <activity
-            android:name="com.liam.music.MainActivity"
+            android:name="com.liam.music.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,12 +29,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.liam.music.PlayMySongActivity"
+            android:name="com.liam.music.activity.PlayMySongActivity"
             android:label="@string/title_activity_play_my_song"
-            android:parentActivityName="com.liam.music.MainActivity" >
+            android:parentActivityName="com.liam.music.activity.MainActivity" >
         </activity>
         <activity
-            android:name="com.liam.music.AlbumSongListActivity"
+            android:name="com.liam.music.activity.AlbumSongListActivity"
             android:label="@string/title_activity_album_song_list" >
         </activity>
     </application>

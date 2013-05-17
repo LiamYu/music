@@ -1,4 +1,4 @@
-package com.liam.music;
+package com.liam.music.entity;
 
 import android.database.Cursor;
 import android.media.MediaMetadataRetriever;
@@ -14,7 +14,7 @@ public class GetSong {
 	// private String SELECTION;
 	// private String[] SELECTION_ARGS;
 	private String order;
-	private static Context ctx;
+	private Context ctx;
 	private String[] mPreviousSongData;
 	private String[] mNextSongData;
 	private MediaMetadataRetriever mMMR;	

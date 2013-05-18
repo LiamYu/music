@@ -26,8 +26,8 @@ public class GetSong {
 		// MediaStore.Audio.Media.ARTIST,
 		// MediaStore.Audio.Media.DATA};
 		order = android.provider.MediaStore.Audio.Media.TITLE;
-		mPreviousSongData = new String[2];
-		mNextSongData = new String[2];
+		mPreviousSongData = new String[5];
+		mNextSongData = new String[5];
 		ctx = context; // 必须使用传人的context，否则出现空指针异常
 		// c = context.getContentResolver().query(URI, PROJECTION, null, null,
 		// null);
@@ -53,6 +53,8 @@ public class GetSong {
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
 			int dataColumn = cursor
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+			int artistColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.ARTIST);
 			do {
 				if (cursor.getString(titleColumn) != null
 						&& cursor.getString(titleColumn).toString()
@@ -63,6 +65,7 @@ public class GetSong {
 					}
 					mPreviousSongData[0] = cursor.getString(titleColumn); // 返回歌曲名称SONG_TITLE
 					mPreviousSongData[1] = cursor.getString(dataColumn); // 返回歌曲地址SONG_PATH
+					mPreviousSongData[2] = cursor.getString(artistColumn);// 返回艺术家名称artist
 					break; // 已经找到上一首歌，跳出while循环
 				}
 			} while (cursor.moveToPrevious());
@@ -87,6 +90,8 @@ public class GetSong {
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
 			int dataColumn = cursor
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+			int artistColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.ARTIST);
 			do {
 				if (cursor.getString(titleColumn) != null
 						&& cursor.getString(titleColumn).toString()
@@ -97,6 +102,7 @@ public class GetSong {
 					}
 					mPreviousSongData[0] = cursor.getString(titleColumn); // 返回歌曲名称SONG_TITLE
 					mPreviousSongData[1] = cursor.getString(dataColumn); // 返回歌曲地址SONG_PATH
+					mPreviousSongData[2] = cursor.getString(artistColumn);// 返回艺术家名称artist
 					break; // 已经找到上一首歌，跳出while循环
 				}
 			} while (cursor.moveToPrevious());
@@ -119,6 +125,8 @@ public class GetSong {
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
 			int dataColumn = cursor
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+			int artistColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.ARTIST);
 			do {
 				if (cursor.getString(titleColumn) != null
 						&& cursor.getString(titleColumn).toString()
@@ -129,6 +137,7 @@ public class GetSong {
 					}
 					mNextSongData[0] = cursor.getString(titleColumn); // 返回歌曲名称SONG_TITLE
 					mNextSongData[1] = cursor.getString(dataColumn); // 返回歌曲地址SONG_PATH
+					mNextSongData[2] = cursor.getString(artistColumn);// 返回艺术家名称artist
 					break; // 已经找到下一首歌，跳出while循环
 				}
 			} while (cursor.moveToNext());
@@ -153,6 +162,8 @@ public class GetSong {
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
 			int dataColumn = cursor
 					.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA);
+			int artistColumn = cursor
+					.getColumnIndex(android.provider.MediaStore.Audio.Media.ARTIST);
 			do {
 				if (cursor.getString(titleColumn) != null
 						&& cursor.getString(titleColumn).toString()
@@ -163,6 +174,7 @@ public class GetSong {
 					}
 					mNextSongData[0] = cursor.getString(titleColumn); // 返回歌曲名称SONG_TITLE
 					mNextSongData[1] = cursor.getString(dataColumn); // 返回歌曲地址SONG_PATH
+					mNextSongData[2] = cursor.getString(artistColumn);// 返回艺术家名称artist
 					break; // 已经找到下一首歌，跳出while循环
 				}
 			} while (cursor.moveToNext());

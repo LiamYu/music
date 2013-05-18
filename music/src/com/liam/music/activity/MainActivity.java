@@ -296,8 +296,11 @@ public class MainActivity extends FragmentActivity implements
 								.getColumnIndex(MediaStore.Audio.Media.DATA);
 						int titleColumn = c
 								.getColumnIndex(MediaStore.Audio.Media.TITLE);
+						int artistColumn = c
+								.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 						String song_path = c.getString(pathColumn);
 						String song_title = c.getString(titleColumn);
+						String artist = c.getString(artistColumn);
 						Toast.makeText(getActivity(), "¼´½«²¥·Å:" + song_title,
 								Toast.LENGTH_LONG).show();
 						Intent it = new Intent(
@@ -305,6 +308,7 @@ public class MainActivity extends FragmentActivity implements
 								com.liam.music.activity.PlayMySongActivity.class);
 						it.putExtra("song_title", song_title);
 						it.putExtra("song_path", song_path);
+						it.putExtra("artist", artist);
 						startActivity(it);
 					}
 				});

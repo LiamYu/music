@@ -61,9 +61,12 @@ public class AlbumSongListActivity extends Activity implements LoaderManager.Loa
 						.getColumnIndex(MediaStore.Audio.Media.TITLE);
 				int songPathColumn = c
 						.getColumnIndex(MediaStore.Audio.Media.DATA);
+				int artistColumn = c
+						.getColumnIndex(MediaStore.Audio.Media.ARTIST);
 				String album_id = c.getString(albumIdColumn);
 				String song_title = c.getString(songTitleColumn);
 				String song_path = c.getString(songPathColumn);
+				String artist = c.getString(artistColumn);
 				Toast.makeText(context, "¼´½«²¥·Å:" + song_title,
 						Toast.LENGTH_LONG).show();
 				Intent it = new Intent(context,
@@ -71,6 +74,7 @@ public class AlbumSongListActivity extends Activity implements LoaderManager.Loa
 				it.putExtra("album_id", album_id);
 				it.putExtra("song_title", song_title);
 				it.putExtra("song_path", song_path);
+				it.putExtra("artist", artist);
 				startActivity(it);
 			}
 		});

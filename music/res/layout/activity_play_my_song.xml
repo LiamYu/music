@@ -16,7 +16,16 @@
         android:id="@+id/song_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:textSize="17sp" />
+    
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        android:textColor="#778899"
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/album_cover"
@@ -27,16 +36,14 @@
         android:src="@drawable/default_cover" />
     <!-- 图片描述需要修改 -->
 
-<!--     <ProgressBar
+
+    <!--
+         <ProgressBar
         android:id="@+id/progressBar1"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" /> -->
-
-    <SeekBar
-        android:id="@+id/music_seekbar"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,18 +54,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dip"
+            android:layout_centerVertical="true"
             android:text="@string/song_progress"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@+id/music_seekbar"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dip"
+             android:layout_marginRight="20dip"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/song_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="15dip"
+            android:layout_centerVertical="true"
             android:text="@string/song_duration"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <RelativeLayout

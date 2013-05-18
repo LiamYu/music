@@ -20,5 +20,6 @@
     <string name="title_activity_album_song_list">专辑歌曲</string>
     <string name="title_activity_search">搜索结果</string>
     <string name="album_cover">专辑封面</string>
+    <string name="no_result">无任何搜索结果，请更换关键字重试！</string>
 
 </resources>

@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">心灵旋律</string>
-    <string name="action_settings">Settings</string>
+    <string name="menu_search">搜索</string>
+    <string name="action_settings">设置</string>
     <string name="pause">暂停</string>
     <string name="previous">重播</string>
     <string name="next">停止</string>
@@ -17,5 +18,7 @@
     <string name="title_songlist">歌曲</string>
     <string name="title_album">专辑</string>
     <string name="title_activity_album_song_list">专辑歌曲</string>
+    <string name="title_activity_search">搜索结果</string>
+    <string name="album_cover">专辑封面</string>
 
 </resources>

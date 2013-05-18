@@ -12,9 +12,11 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NavUtils;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,6 +41,7 @@ public class PlayMySongActivity extends Activity {
 	private String[] mNextSongData = new String[2];
 	private ImageView mAlbumCover;
 	private byte[] img = new byte[10];
+//	private ProgressBar mProgressbar;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -71,6 +74,7 @@ public class PlayMySongActivity extends Activity {
 		TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		tm.listen(new MyPhoneListener(), PhoneStateListener.LISTEN_CALL_STATE);
 		music_seekbar = (SeekBar) this.findViewById(R.id.music_seekbar);
+//		mProgressbar = (ProgressBar)  findViewById(R.id.progressBar1);
 		music_seekbar
 				.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -158,17 +162,24 @@ public class PlayMySongActivity extends Activity {
 		return true;
 	}
 
-	/*
-	 * @Override public boolean onOptionsItemSelected(MenuItem item) { switch
-	 * (item.getItemId()) { case android.R.id.home: // This ID represents the
-	 * Home or Up button. In the case of this // activity, the Up button is
-	 * shown. Use NavUtils to allow users // to navigate up one level in the
-	 * application structure. For // more details, see the Navigation pattern on
-	 * Android Design: // //
-	 * http://developer.android.com/design/patterns/navigation.html#up-vs-back
-	 * // NavUtils.navigateUpFromSameTask(this); return true; } return
-	 * super.onOptionsItemSelected(item); }
-	 */
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	 
 
 	/*
 	 * (non-Javadoc)
@@ -337,6 +348,7 @@ public class PlayMySongActivity extends Activity {
 		public void onPrepared(MediaPlayer arg0) {
 			mMediaPlayer.start(); // 开始播放
 			music_seekbar.setMax(mMediaPlayer.getDuration()); // 获取歌曲的长度并设置成播放进度条的最大值
+//			mProgressbar.setMax(mMediaPlayer.getDuration());
 			handler.post(updateThread);
 			if (position > 0) {
 				mMediaPlayer.seekTo(position);

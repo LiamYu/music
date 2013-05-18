@@ -2,8 +2,10 @@ package com.liam.music.activity;
 
 import com.liam.music.R;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.NavUtils;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
@@ -12,6 +14,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -36,6 +39,10 @@ public class AlbumSongListActivity extends Activity implements LoaderManager.Loa
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_album_song_list);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			// Show the Up button in the action bar.
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 		mAlbumList = (ListView) findViewById(R.id.album_list);		
 		mAlbumListAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, null, projection_album, new int[] {android.R.id.text1, android.R.id.text2}, 0);
 		mCallbacks = this;
@@ -74,6 +81,23 @@ public class AlbumSongListActivity extends Activity implements LoaderManager.Loa
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.album_list, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
